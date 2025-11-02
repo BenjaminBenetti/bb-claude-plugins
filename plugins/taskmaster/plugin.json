@@ -1,0 +1,9 @@
+{
+  "name": "taskmaster",
+  "description": "Taskmaster workflow plugin, use for multi stage multi agent coding tasks.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ben Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}

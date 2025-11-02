@@ -1,0 +1,9 @@
+{
+  "name": "generic-code",
+  "description": "Generic slash commands and agents for completing development related tasks",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ben Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}

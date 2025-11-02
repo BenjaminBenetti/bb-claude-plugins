@@ -1,0 +1,29 @@
+{
+  "name": "bb-claude-plugins",
+  "author": {
+    "name": "Ben Benetti",
+    "email": "ben@bbenetti.ca"
+  },
+  "plugins": [
+    {
+      "name": "generic-code",
+      "source": "./ai-agents/claude/plugins/generic-code",
+      "description": "Generic slash commands and agents for completing development related tasks"
+    },
+    {
+      "name": "github",
+      "source": "./ai-agents/claude/plugins/github",
+      "description": "Plugin for interacting with GitHub"
+    },
+    {
+      "name": "plan",
+      "source": "./ai-agents/claude/plugins/plan",
+      "description": "Slash commands and agents to help you plan and execute work."
+    },
+    {
+      "name": "taskmaster",
+      "source": "./ai-agents/claude/plugins/taskmaster",
+      "description": "Taskmaster workflow plugin, use for multi stage multi agent coding tasks."
+    }
+  ]
+}

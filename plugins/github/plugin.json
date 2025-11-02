@@ -1,0 +1,9 @@
+{
+  "name": "github",
+  "description": "Plugin for interacting with GitHub",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ben Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}
