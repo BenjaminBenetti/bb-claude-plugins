@@ -1,7 +1,7 @@
 {
   "name": "bb-claude-plugins",
-  "author": {
-    "name": "Ben Benetti",
+  "owner": {
+    "name": "Benjamin Benetti",
     "email": "ben@bbenetti.ca"
   },
   "plugins": [
