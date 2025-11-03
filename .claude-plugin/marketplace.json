@@ -24,6 +24,11 @@
       "name": "taskmaster",
       "source": "./plugins/taskmaster",
       "description": "Taskmaster workflow plugin, use for multi stage multi agent coding tasks."
+    },
+    {
+      "name": "mdd",
+      "source": "./plugins/mdd",
+      "description": "Module Driven Development - AI-first development pattern for creating focused modules with clean interfaces and comprehensive documentation"
     }
   ]
 }

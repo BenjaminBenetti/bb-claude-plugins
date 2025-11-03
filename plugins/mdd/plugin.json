@@ -1,0 +1,9 @@
+{
+  "name": "mdd",
+  "description": "Module Driven Development - AI-first development pattern focusing on clean module interfaces and documentation",
+  "version": "1.0.0",
+  "author": {
+    "name": "Benjamin Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}
