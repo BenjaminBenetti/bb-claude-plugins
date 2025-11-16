@@ -4,3 +4,6 @@ You will inspect the code under the directory $ARGUMENTS and load it into contex
 focus on understand the the project structure, and key concepts. You will NOT write any code.
 Your goal is to build an understanding of the project so that you can effectively plan changes 
 and execute changes to it.
+
+### Important rules 
+Do not use subagents. You your self MUST inspect the code so that YOU understand it.
