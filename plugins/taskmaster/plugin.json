@@ -1,6 +1,6 @@
 {
   "name": "taskmaster",
-  "description": "Taskmaster workflow plugin, use for multi stage multi agent coding tasks.",
+  "description": "Process driven development with agent teams for multi-stage coding tasks.",
   "version": "1.0.0",
   "author": {
     "name": "Ben Benetti",

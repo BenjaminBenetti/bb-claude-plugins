@@ -23,7 +23,7 @@
     {
       "name": "taskmaster",
       "source": "./plugins/taskmaster",
-      "description": "Taskmaster workflow plugin, use for multi stage multi agent coding tasks."
+      "description": "Process driven development with agent teams for multi-stage coding tasks."
     },
     {
       "name": "mdd",
