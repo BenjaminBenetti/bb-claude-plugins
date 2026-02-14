@@ -42,82 +42,21 @@ Before spawning any teammates, get clarity:
 - What needs to be accomplished and what does success look like?
 - What areas of the codebase are affected?
 - Are there constraints, dependencies, or risks?
-- Is this task complex enough to warrant a team, or is a single session
-  sufficient?
+- Break down the task in to smaller tasks to be delegated to teammates.
 
 If anything is ambiguous, ask the user before proceeding.
 
-### 2. Plan the Team and Task Breakdown
+### 2. Spawn Teammates
 
-Based on the task, decide:
+The team should have the following roles:
+- developer - responsible for implementation
+- reviewer - responsible for reviewing the implementation. The reviewer will talk directly to the developer to provide feedback.
+- tester - responsible for writing tests for the implementation. The tester will talk directly to the developer to get the implementation details, and notify the developer of any issues found.
 
-- **How many teammates** to spawn and what persona each should have. Create
-  personas dynamically — name them by their role (e.g., "architect",
-  "frontend-impl", "test-writer", "security-reviewer"). Give each teammate a
-  detailed spawn prompt with enough context to work independently.
-- **Task decomposition** — Break the work into tasks sized so each produces a
-  clear deliverable (a function, a module, a test file, a review). Avoid tasks
-  that are too small (coordination overhead exceeds benefit) or too large
-  (teammates work too long without check-ins). Aim for 5-6 tasks per teammate.
-- **Dependencies** — Express ordering constraints as task dependencies. A
-  blocked task cannot be claimed until its dependencies complete.
-- **File ownership** — Assign teammates to different files or modules. Two
-  teammates editing the same file leads to overwrites.
+You can spawn as many copies of each role as you need. For example, if the task is complex, you may want to spawn multiple developers to work on different aspects of the task.
+You should optimize the team for parallelization. If a task can be broken down in to multiple independent aspects, you should spawn multiple developers to work on each aspect.
 
-For complex or risky work, require **plan approval** — the teammate works in
-read-only plan mode until you approve their approach before they begin
-implementation.
-
-### 3. Execute with the Team
-
-Spawn teammates, create the shared task list, and let them work:
-
-- Teammates self-claim unassigned, unblocked tasks, or you assign explicitly.
-- Teammates communicate peer-to-peer via the mailbox to share discoveries,
-  challenge each other's approaches, and coordinate on shared boundaries.
-- You monitor progress, review intermediate results, redirect as needed, and
-  answer questions teammates escalate.
-- As research or implementation reveals new information, update the task list —
-  add tasks, adjust dependencies, or re-scope.
-
-This is not a rigid sequence. Research, architecture, implementation, and review
-can overlap. A teammate investigating a technical question may spawn findings
-that reshape the implementation plan. Another may finish early and pick up
-review work. Let the work flow naturally.
-
-### 4. Review and Validate
-
-As teammates complete their work:
-
-- Spawn or redirect teammates to review each other's output — code structure,
-  correctness, test coverage, domain-specific concerns.
-- Reviewers message implementers directly with feedback. Implementers fix and
-  re-submit.
-- Run tests if code was changed. If tests fail, add remediation tasks.
-- Iterate until the work meets quality standards.
-
-### 5. Synthesize and Complete
-
-Once all tasks are done:
-
-- Gather and synthesize results across teammates.
-- Shut down teammates gracefully.
-- Clean up the team.
-- Present the user with:
-  1. Summary of what was accomplished
-  2. Files created or modified
-  3. Any follow-up items or recommendations
-
----
-
-## When NOT to Use a Team
-
-Some tasks don't benefit from agent teams. Use a single session instead when:
-
-- The task is sequential and each step depends on the previous one
-- The work involves editing the same files repeatedly
-- The coordination overhead would exceed the benefit
-- The task is simple enough that one agent can handle it efficiently
+####
 
 ---
 
