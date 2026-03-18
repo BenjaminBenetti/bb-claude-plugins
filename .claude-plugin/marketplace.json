@@ -11,11 +11,6 @@
       "description": "Generic slash commands and agents for completing development related tasks"
     },
     {
-      "name": "github",
-      "source": "./plugins/github",
-      "description": "Plugin for interacting with GitHub"
-    },
-    {
       "name": "plan",
       "source": "./plugins/plan",
       "description": "Slash commands and agents to help you plan and execute work."
@@ -29,6 +24,11 @@
       "name": "mdd",
       "source": "./plugins/mdd",
       "description": "Module Driven Development - AI-first development pattern for creating focused modules with clean interfaces and comprehensive documentation"
+    },
+    {
+      "name": "gh",
+      "source": "./plugins/gh",
+      "description": "GitHub CLI powered workflows for PR reviews, issue management, and more"
     }
   ]
 }

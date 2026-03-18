@@ -1,0 +1,9 @@
+{
+  "name": "gh",
+  "description": "GitHub CLI powered workflows for PR reviews, issue management, and more",
+  "version": "1.0.0",
+  "author": {
+    "name": "Benjamin Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}
