@@ -1,5 +1,5 @@
 ---
-name: pr-review
+name: gh:pr-review
 description: Review and interactively address PR comments. Use when the user wants to review PR feedback, go through PR comments, or address reviewer requests on a pull request.
 argument-hint: "[pr-number]"
 ---
