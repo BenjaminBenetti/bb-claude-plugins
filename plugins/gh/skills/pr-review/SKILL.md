@@ -43,36 +43,40 @@ For each comment, capture:
 
 ## Step 3: Present the Worklist
 
+Each item gets a sequential number that is unique across all categories. Numbering starts at 1 and continues across groups so the user can reference any item by number.
+
 Print the categorized worklist in this format:
 
 ```
 ## PR #123 — "Add caching layer" — 12 comments
 
 ### Code Changes Requested (4)
- - [ ] @alice `src/cache.ts:42` — Use LRU eviction instead of FIFO
- - [ ] @bob `src/cache.ts:87` — Handle cache miss error case
- - [ ] @alice `src/index.ts:15` — Remove unused import
- - [ ] @bob `src/cache.ts:102` — Add TTL option to config
+ 1. [ ] @alice `src/cache.ts:42` — Use LRU eviction instead of FIFO
+ 2. [ ] @bob `src/cache.ts:87` — Handle cache miss error case
+ 3. [ ] @alice `src/index.ts:15` — Remove unused import
+ 4. [ ] @bob `src/cache.ts:102` — Add TTL option to config
 
 ### Questions / Clarifications (2)
- - [ ] @carol `src/cache.ts:30` — Why not use Redis here?
- - [ ] @carol — (general comment) Whats the expected memory footprint?
+ 5. [ ] @carol `src/cache.ts:30` — Why not use Redis here?
+ 6. [ ] @carol — (general comment) Whats the expected memory footprint?
 
 ### Nits / Style (1)
- - [ ] @alice `src/cache.ts:55` — Rename `d` to `data`
+ 7. [ ] @alice `src/cache.ts:55` — Rename `d` to `data`
 
 ### Positive Feedback (1)
- - [x] @bob — Great test coverage!
+ 8. [x] @bob — Great test coverage!
 ```
+
+Numbers are stable — an item keeps its number even after other items are resolved.
 
 ## Step 4: Interactive Resolution Loop
 
 Wait for the user to tell you what to do. They might say things like:
 
-- "Fix the LRU eviction one" → make the code change, then reply to the comment on GitHub confirming the fix
-- "Reply to Carol's Redis question saying we want to avoid the infra dependency" → post the reply via `gh api`
-- "Dismiss the rename nit, I prefer short names in that scope" → reply explaining the reasoning
-- "Do all the code changes" → batch fix them all
+- "Fix #1" → make the code change for the LRU eviction item, then reply to the comment on GitHub confirming the fix
+- "Reply to #5 saying we want to avoid the infra dependency" → post the reply via `gh api`
+- "Dismiss #7, I prefer short names in that scope" → reply explaining the reasoning
+- "Do all the code changes" → batch fix #1, #2, #3, #4
 
 After completing each action:
 1. Mark the addressed items as done `[x]`
