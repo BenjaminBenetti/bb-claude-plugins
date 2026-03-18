@@ -90,3 +90,4 @@ After completing each action:
 - When replying to comments, keep replies concise and professional.
 - If a comment is ambiguous, ask the user what they'd like to do rather than guessing.
 - Track the worklist state throughout the conversation — never lose track of which items remain.
+- Always use repo-root-relative paths when referencing files (e.g. `src/cache/lru.ts:42`, not `lru.ts:42`).
