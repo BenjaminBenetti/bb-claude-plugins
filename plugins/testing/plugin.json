@@ -1,0 +1,9 @@
+{
+  "name": "testing",
+  "description": "Skills for testing and validation workflows",
+  "version": "1.0.0",
+  "author": {
+    "name": "Benjamin Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}
