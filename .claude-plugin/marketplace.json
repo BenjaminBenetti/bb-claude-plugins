@@ -29,6 +29,11 @@
       "name": "gh",
       "source": "./plugins/gh",
       "description": "GitHub CLI powered workflows for PR reviews, issue management, and more"
+    },
+    {
+      "name": "bb-slack",
+      "source": "./plugins/bb-slack",
+      "description": "Slack-powered workflows for notifications, channel management, and messaging"
     }
   ]
 }

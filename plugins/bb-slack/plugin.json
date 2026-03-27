@@ -1,0 +1,9 @@
+{
+  "name": "bb-slack",
+  "description": "Slack-powered workflows for notifications, channel management, and messaging",
+  "version": "1.0.0",
+  "author": {
+    "name": "Benjamin Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}
