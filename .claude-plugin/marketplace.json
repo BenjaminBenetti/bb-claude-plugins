@@ -34,6 +34,11 @@
       "name": "bb-slack",
       "source": "./plugins/bb-slack",
       "description": "Slack-powered workflows for notifications, channel management, and messaging"
+    },
+    {
+      "name": "testing",
+      "source": "./plugins/testing",
+      "description": "Testing skills for Claude"
     }
   ]
 }
