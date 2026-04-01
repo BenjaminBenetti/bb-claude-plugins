@@ -22,7 +22,7 @@ gh api repos/{owner}/{repo}/pulls/{number}/comments
 gh api repos/{owner}/{repo}/issues/{number}/comments
 ```
 
-Collect every comment that represents feedback, a question, or a requested change. Ignore bot comments and CI status messages. Note which comments are part of a review thread vs standalone.
+Collect every comment that represents feedback, a question, or a requested change. Ignore CI status messages. Note which comments are part of a review thread vs standalone.
 
 ## Step 2: Categorize Comments
 
