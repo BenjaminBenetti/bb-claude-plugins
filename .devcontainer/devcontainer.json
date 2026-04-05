@@ -1,0 +1,5 @@
+{
+  "name": "BB Claude Plugins",
+  "image": "mcr.microsoft.com/devcontainers/base:trixie",
+  "remoteUser": "vscode"
+}
