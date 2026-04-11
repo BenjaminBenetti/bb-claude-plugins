@@ -2,6 +2,7 @@
   "name": "BB Claude Plugins",
   "image": "mcr.microsoft.com/devcontainers/base:trixie",
   "remoteUser": "vscode",
+  "privileged": true,
   "mounts": [
     "source=${localEnv:HOME}/.test-mount,target=/home/vscode/.claude,type=bind"
   ]
