@@ -39,6 +39,11 @@
       "name": "testing",
       "source": "./plugins/testing",
       "description": "Testing skills for Claude"
+    },
+    {
+      "name": "bb-coding",
+      "source": "./plugins/bb-coding",
+      "description": "General-purpose coding workflows, skills, and agents"
     }
   ]
 }
