@@ -41,8 +41,8 @@
       "description": "Testing skills for Claude"
     },
     {
-      "name": "bb-coding",
-      "source": "./plugins/bb-coding",
+      "name": "bbcode",
+      "source": "./plugins/bbcode",
       "description": "General-purpose coding workflows, skills, and agents"
     }
   ]
