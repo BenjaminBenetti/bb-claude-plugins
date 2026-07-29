@@ -1,5 +1,5 @@
 ---
-name: bbcode:cosmos-workflow-01
+name: cosmos-workflow-01
 description: End-to-end workflow for building out a ticket — write code, open a PR, watch it for CI, code review, and QA, then address feedback, push fixes, and converse with QA via /qa-manager comments. Use when the user wants to take a ticket through the full Cosmos PR review loop, drive a PR to green, or process reviewer/QA feedback on an open PR.
 argument-hint: "[ticket id or description | PR number]"
 ---

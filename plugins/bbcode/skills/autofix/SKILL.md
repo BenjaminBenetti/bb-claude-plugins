@@ -1,5 +1,5 @@
 ---
-name: bbcode:autofix
+name: autofix
 description: Autofix common code-quality issues by running a pipeline of focused sub-agents (one-class-per-file, etc.). Use when the user wants to clean up code smells, normalize file structure, or run autofix on a set of files.
 argument-hint: "[files-or-glob | description of target]"
 ---

@@ -1,5 +1,5 @@
 ---
-name: gh:pr-create
+name: pr-create
 description: Create a pull request from the current branch. Use when the user wants to open a PR, create a pull request, or push their branch up for review.
 argument-hint: "[base-branch]"
 ---
