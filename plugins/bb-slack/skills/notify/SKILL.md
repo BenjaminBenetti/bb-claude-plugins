@@ -1,5 +1,5 @@
 ---
-name: bb-slack:notify
+name: notify
 description: Send a notification to the #bb-claude Slack channel. Use when a task completes, something notable happens, or the user asks to be notified.
 argument-hint: "[message]"
 ---

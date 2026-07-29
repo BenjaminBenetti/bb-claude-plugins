@@ -1,5 +1,5 @@
 ---
-name: gh:pr-dashboard
+name: pr-dashboard
 description: Show a dashboard of actionable PRs you've authored. Use when the user wants to see their open PRs, check PR status, review their PR pipeline, or find PRs that need attention.
 argument-hint: "[org or org/repo]"
 ---

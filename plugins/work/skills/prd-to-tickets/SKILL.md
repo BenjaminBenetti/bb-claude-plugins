@@ -1,5 +1,5 @@
 ---
-name: work:prd-to-tickets
+name: prd-to-tickets
 description: Break a PRD down into requirement-focused tickets under an epic. Use when the user supplies a PRD (URL or document) and wants tickets created from it in their issue tracker.
 argument-hint: "<prd-url> <epic-url> [instructions, e.g. ticket count]"
 ---
