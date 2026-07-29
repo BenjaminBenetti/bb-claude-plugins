@@ -44,6 +44,11 @@
       "name": "bbcode",
       "source": "./plugins/bbcode",
       "description": "General-purpose coding workflows, skills, and agents"
+    },
+    {
+      "name": "work",
+      "source": "./plugins/work",
+      "description": "Work-management workflows: turn PRDs into tickets, and other planning/tracking helpers"
     }
   ]
 }

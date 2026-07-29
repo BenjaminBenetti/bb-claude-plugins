@@ -1,0 +1,9 @@
+{
+  "name": "work",
+  "description": "Work-management workflows: turn PRDs into tickets, and other planning/tracking helpers",
+  "version": "1.0.0",
+  "author": {
+    "name": "Benjamin Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}
