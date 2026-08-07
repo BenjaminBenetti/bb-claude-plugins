@@ -20,7 +20,8 @@ by extra instructions.
   `https://<site>.atlassian.net/browse/ABC-123`).
 - **Instructions** (optional): free-text guidance on how to split the work —
   most commonly how many tickets to make ("as 3 tickets", "one ticket per
-  screen", "a single ticket"). Honor these when planning in Step 3.
+  screen", "a single ticket"). Honor these when planning in Step 3. May also
+  include assignment ("assign to me", "assign to <name>") — handled in Step 4.5.
 
 If the PRD URL is missing, ask the user for it. If the epic URL is missing,
 **ask the user which epic the tickets should go in** — never guess an epic and
@@ -101,8 +102,88 @@ On confirmation, create each ticket in the epic:
 - Match any project conventions visible on the epic's existing children
   (labels, components) when they clearly apply.
 
+## Step 4.5: Match sibling conventions — sprint, assignee, and discovery link
+
+A freshly created ticket won't behave like the epic's other children unless it
+carries the same board/sprint, assignment, and discovery-link conventions. Apply
+these right after creating each ticket, before reporting.
+
+**Discover every value from the epic's existing children — never assume one.**
+Field ids, link type names, project keys, and sprint ids differ per site and
+drift over time (sprints roll over, fields get renamed). A sibling ticket is the
+source of truth: read one, see what it carries, reproduce it.
+
+**When a value can't be determined, ask the user — never guess and never
+silently skip it.** If the siblings genuinely don't use a convention (no sprints
+at all, no discovery links anywhere), that's an answer: skip it and say so in
+the report. But if the siblings clearly use it and you can't work out the value,
+stop and ask.
+
+### Sprint (so it appears on the board)
+
+Board-based projects only show tickets that are in a sprint. If the siblings sit
+in sprints, put each new ticket in the **currently active** one:
+
+1. Identify the Sprint field id — it's a custom field whose id varies by site.
+   Read a sibling with `expand: "names"` and find the field named "Sprint".
+2. Find the open sprints for the project (a JQL search on `sprint in
+   openSprints()`, returning that sprint field). Use the sprint whose `state` is
+   `active`. A sprint can stay `active` past its end date until it's formally
+   closed, and a newer one may already be open — always take the one currently
+   `active`, not the one matching today's date.
+3. Set it on create via `additional_fields`, keyed by the discovered field id,
+   with the numeric sprint id as the value.
+4. **No active sprint found** — the siblings are in sprints but none is
+   currently `active`, several look active, or the sprint field can't be
+   identified — **ask the user which sprint to use** (or whether to leave the
+   tickets out of a sprint) before creating. Don't fall back to the newest,
+   the closest-dated, or a closed sprint.
+
+### Assignee
+
+If the user asked for an assignee ("assign to me", or a named person), set it.
+Resolve the person to their account id from the epic or its existing children
+(`assignee`/`reporter`) rather than assuming their login email matches their
+tracker email. Pass the account id on create. If the user didn't ask, leave the
+assignee as the project default.
+
+### Discovery / Solution link
+
+If the epic's children link out to a discovery or Solution ticket, every new
+ticket needs the same link to the item it implements.
+
+1. **Learn the convention from a sibling.** Read an existing child's
+   `issuelinks` and note the discovery project it points at, the issue type
+   there, and the exact link type name used. Reuse that link type verbatim.
+2. **Find the matching discovery ticket** by searching that project for the
+   feature's keywords. A PRD usually maps to one primary item; individual
+   requirements sometimes have their own.
+3. **Get the direction right.** The delivery ticket *implements* the discovery
+   ticket, so it goes on the inward side and the discovery ticket on the
+   outward side — confirm against the sibling's link before creating, since the
+   labels are what the sibling shows, not what the field names suggest.
+4. **Multiple matches:** link each item a ticket genuinely spans; otherwise link
+   only the single matching one — don't over-link.
+5. **No matching ticket found** — nothing in the discovery project matches, or
+   several candidates match and none is clearly right — **don't invent a link
+   and don't leave it out silently.** Tell the user which ticket has no
+   counterpart (listing any near-matches you found) and ask how to proceed:
+   which item to link, or to create the ticket unlinked.
+6. **Link type unclear** — the siblings' link type can't be reproduced, or the
+   create call rejects it — ask the user rather than substituting a different
+   type on your own. Only use a generic "Relates" fallback if they approve it,
+   and flag it in the report.
+
+### Verify and report
+
+Re-read each created ticket — sprint field, assignee, issue links, and parent —
+and confirm it matches the siblings: in the active sprint, assigned to the right
+person, and linked to the right discovery ticket(s) in the right direction.
+Report the sprint, assignee, and link(s) per ticket in Step 5.
+
 ## Step 5: Report
 
-List the created tickets with their keys and URLs, grouped under the epic.
+List the created tickets with their keys and URLs, grouped under the epic. For
+each ticket, report its sprint, assignee, and linked SD ticket(s).
 Note any PRD requirements that were intentionally skipped (already covered,
 out of scope, or explicitly excluded by the PRD) and why.
