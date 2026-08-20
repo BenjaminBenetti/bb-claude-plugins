@@ -1,31 +1,31 @@
 ---
 name: prd-to-tickets
-description: Break a PRD down into requirement-focused tickets under an epic. Use when the user supplies a PRD (URL or document) and wants tickets created from it in their issue tracker.
-argument-hint: "<prd-url> <epic-url> [instructions, e.g. ticket count]"
+description: Break a PRD down into requirement-focused tickets linked back to its SD ticket. Use when the user supplies a PRD (URL or document) and wants tickets created from it in their issue tracker.
+argument-hint: "<prd-url> [sd-url] [instructions, e.g. ticket count]"
 ---
 
 # PRD to Tickets — Break a PRD into Requirement Tickets
 
-Read a PRD, extract its requirements, and create one or more tickets under a
-given epic. Tickets describe **what** is required — never **how** to build it.
+Read a PRD, extract its requirements, and create the tickets that deliver it,
+linked back to the SD (discovery / Solution Design) ticket the PRD belongs to.
+Tickets describe **what** is required — never **how** to build it.
 
 ## Arguments
 
-`$ARGUMENTS` — a PRD URL and an epic URL, in either order, optionally followed
-by extra instructions.
+`$ARGUMENTS` — a PRD URL, optionally an SD ticket URL, optionally followed by
+extra instructions.
 
-- **PRD URL**: the product requirements document (Confluence page, Google Doc,
-  Notion page, or any fetchable URL).
-- **Epic URL**: the epic the tickets belong to (e.g. a Jira epic URL like
-  `https://<site>.atlassian.net/browse/ABC-123`).
+- **PRD URL** (required): the product requirements document (Confluence page,
+  Google Doc, Notion page, or any fetchable URL).
+- **SD URL** (optional): the discovery / Solution Design ticket this PRD came
+  from (e.g. `https://<site>.atlassian.net/browse/SD-123`). If omitted, locate
+  it (Step 2).
 - **Instructions** (optional): free-text guidance on how to split the work —
   most commonly how many tickets to make ("as 3 tickets", "one ticket per
   screen", "a single ticket"). Honor these when planning in Step 3. May also
-  include assignment ("assign to me", "assign to <name>") — handled in Step 4.5.
+  include assignment ("assign to me", "assign to <name>") — handled in Step 5.
 
-If the PRD URL is missing, ask the user for it. If the epic URL is missing,
-**ask the user which epic the tickets should go in** — never guess an epic and
-never create tickets outside of one.
+If the PRD URL is missing, ask the user for it.
 
 ## Step 1: Read the PRD
 
@@ -45,16 +45,37 @@ Also collect any **design links** the PRD contains — Claude Design shares,
 Figma files, mockup/prototype URLs — and note which requirement each one
 belongs to, so they can be carried into the right tickets.
 
-## Step 2: Read the Epic
+## Step 2: Find the SD ticket
 
-Fetch the epic (for Jira, extract the issue key from the URL and use
-`getJiraIssue`):
+Everything created in this skill hangs off the SD ticket, so identify it first.
 
-- Confirm it exists and note its project, so tickets are created in the right
-  place.
-- List its existing child issues. If a requirement from the PRD is already
-  covered by an existing child ticket, do not create a duplicate — mention the
-  overlap to the user instead.
+- **SD URL given**: read it (for Jira, extract the issue key and use
+  `getJiraIssue`). Confirm it's the right item — its summary/description should
+  match the PRD's subject.
+- **SD URL not given**: locate it. Search the discovery project for the PRD's
+  title and feature keywords, and check whether the PRD itself is linked from,
+  or links to, a tracker item. Use whatever signal is available — a delivery
+  ticket for related work that already links to an SD tells you which project
+  the SD items live in and what link type is used.
+
+**If you can't find it, or several candidates match and none is clearly right,
+tell the user.** List the near-matches you found and ask which SD to use (or
+whether to proceed without one). Never invent an SD link and never silently
+skip it.
+
+From the SD (and from delivery tickets already linked to SDs in that project),
+note:
+
+- The **delivery project** new tickets should be created in. If it isn't
+  determinable, ask the user which project to create in — don't guess.
+- The **link type** used between delivery items and SD items, verbatim, and
+  which side is inward vs. outward. The delivery item *implements* the SD item;
+  confirm the direction against an existing linked pair rather than inferring
+  it from field names.
+
+Also check what the SD already has linked. If a requirement from the PRD is
+already covered by an existing linked ticket or epic, do not create a
+duplicate — mention the overlap to the user instead.
 
 ## Step 3: Plan the Tickets
 
@@ -68,6 +89,9 @@ Each ticket should be:
   arbitrary fragment.
 - **Requirement-only** — describes user-visible behavior, business rules, and
   acceptance criteria.
+
+The number of tickets determines the structure created in Step 4 — plan the
+split first, then apply the matching shape.
 
 ### Ticket content rules (hard requirements)
 
@@ -88,44 +112,67 @@ Each ticket should be:
      **Acceptance Criteria** section phrased as observable behavior
      ("When X, the user sees/can Y").
 
-## Step 4: Confirm, Then Create
+## Step 4: Structure — how the SD, epic, and tickets connect
 
-Present the proposed ticket list (summaries + one-line gist of each) to the
-user and confirm before creating anything.
+The shape depends entirely on how many tickets the PRD needs.
 
-On confirmation, create each ticket in the epic:
+**One ticket satisfies the SD → `SD → Ticket`**
 
-- For Jira: `createJiraIssue` in the epic's project, with the epic as parent.
-  Use the project's standard ticket type for feature work (usually **Story**;
-  fall back to **Task** if the project has no Story type — check with
-  `getJiraProjectIssueTypesMetadata` if unsure).
-- Match any project conventions visible on the epic's existing children
-  (labels, components) when they clearly apply.
+Create the single ticket in the delivery project and link it directly to the
+SD. **Do not create an epic**, and do not parent the ticket to an existing one.
+A lone ticket hangs off the SD on its own.
 
-## Step 4.5: Match sibling conventions — sprint, assignee, and discovery link
+**More than one ticket is required → `SD → Epic → Tickets`**
 
-A freshly created ticket won't behave like the epic's other children unless it
-carries the same board/sprint, assignment, and discovery-link conventions. Apply
-these right after creating each ticket, before reporting.
+1. Create an **epic** in the delivery project. Its summary names the capability
+   the PRD delivers; its description is a short scope summary in plain
+   language. The same content rules apply — no technical details, no PRD link.
+2. Link the **epic** to the SD, using the link type and direction learned in
+   Step 2.
+3. Create each ticket with that epic as its **parent**.
+4. **Do not link the individual tickets to the SD** — the epic carries that
+   link. The SD reaches the tickets through the epic.
 
-**Discover every value from the epic's existing children — never assume one.**
-Field ids, link type names, project keys, and sprint ids differ per site and
-drift over time (sprints roll over, fields get renamed). A sibling ticket is the
-source of truth: read one, see what it carries, reproduce it.
+## Step 5: Confirm, Then Create
+
+Present the plan to the user before creating anything: the SD ticket you'll
+link to, whether this is a single ticket or an epic with N tickets, and the
+proposed ticket summaries with a one-line gist of each. Confirm, then create.
+
+- For Jira: `createJiraIssue` in the delivery project. Use the project's
+  standard ticket type for feature work (usually **Story**; fall back to
+  **Task** if the project has no Story type — check with
+  `getJiraProjectIssueTypesMetadata` if unsure), and **Epic** for the epic.
+- Create the epic first when there is one, so tickets can be created with it as
+  parent in a single pass.
+- Match visible project conventions (labels, components) from comparable
+  existing tickets when they clearly apply.
+
+### Match sibling conventions — sprint and assignee
+
+A freshly created ticket won't behave like the project's other tickets unless it
+carries the same board/sprint and assignment conventions. Apply these right
+after creating each ticket, before reporting.
+
+**Discover every value from comparable existing tickets — never assume one.**
+Field ids, project keys, and sprint ids differ per site and drift over time
+(sprints roll over, fields get renamed). An existing ticket in the delivery
+project is the source of truth: read one, see what it carries, reproduce it.
 
 **When a value can't be determined, ask the user — never guess and never
-silently skip it.** If the siblings genuinely don't use a convention (no sprints
-at all, no discovery links anywhere), that's an answer: skip it and say so in
-the report. But if the siblings clearly use it and you can't work out the value,
-stop and ask.
+silently skip it.** If the project genuinely doesn't use a convention (no
+sprints at all), that's an answer: skip it and say so in the report. But if
+other tickets clearly use it and you can't work out the value, stop and ask.
 
-### Sprint (so it appears on the board)
+#### Sprint (so it appears on the board)
 
-Board-based projects only show tickets that are in a sprint. If the siblings sit
-in sprints, put each new ticket in the **currently active** one:
+Board-based projects only show tickets that are in a sprint. If comparable
+tickets sit in sprints, put each new **ticket** in the **currently active** one.
+Epics are not put in sprints.
 
 1. Identify the Sprint field id — it's a custom field whose id varies by site.
-   Read a sibling with `expand: "names"` and find the field named "Sprint".
+   Read an existing ticket with `expand: "names"` and find the field named
+   "Sprint".
 2. Find the open sprints for the project (a JQL search on `sprint in
    openSprints()`, returning that sprint field). Use the sprint whose `state` is
    `active`. A sprint can stay `active` past its end date until it's formally
@@ -133,57 +180,41 @@ in sprints, put each new ticket in the **currently active** one:
    `active`, not the one matching today's date.
 3. Set it on create via `additional_fields`, keyed by the discovered field id,
    with the numeric sprint id as the value.
-4. **No active sprint found** — the siblings are in sprints but none is
-   currently `active`, several look active, or the sprint field can't be
-   identified — **ask the user which sprint to use** (or whether to leave the
-   tickets out of a sprint) before creating. Don't fall back to the newest,
-   the closest-dated, or a closed sprint.
+4. **No active sprint found** — the project uses sprints but none is currently
+   `active`, several look active, or the sprint field can't be identified —
+   **ask the user which sprint to use** (or whether to leave the tickets out of
+   a sprint) before creating. Don't fall back to the newest, the closest-dated,
+   or a closed sprint.
 
-### Assignee
+#### Assignee
 
-If the user asked for an assignee ("assign to me", or a named person), set it.
-Resolve the person to their account id from the epic or its existing children
-(`assignee`/`reporter`) rather than assuming their login email matches their
-tracker email. Pass the account id on create. If the user didn't ask, leave the
-assignee as the project default.
+If the user asked for an assignee ("assign to me", or a named person), set it on
+the tickets. Resolve the person to their account id from the SD or from existing
+tickets (`assignee`/`reporter`) rather than assuming their login email matches
+their tracker email. Pass the account id on create. If the user didn't ask,
+leave the assignee as the project default.
 
-### Discovery / Solution link
+### Verify
 
-If the epic's children link out to a discovery or Solution ticket, every new
-ticket needs the same link to the item it implements.
+Re-read everything created — the epic (if any), each ticket's parent, sprint
+field, assignee, and the SD link — and confirm the structure is right:
 
-1. **Learn the convention from a sibling.** Read an existing child's
-   `issuelinks` and note the discovery project it points at, the issue type
-   there, and the exact link type name used. Reuse that link type verbatim.
-2. **Find the matching discovery ticket** by searching that project for the
-   feature's keywords. A PRD usually maps to one primary item; individual
-   requirements sometimes have their own.
-3. **Get the direction right.** The delivery ticket *implements* the discovery
-   ticket, so it goes on the inward side and the discovery ticket on the
-   outward side — confirm against the sibling's link before creating, since the
-   labels are what the sibling shows, not what the field names suggest.
-4. **Multiple matches:** link each item a ticket genuinely spans; otherwise link
-   only the single matching one — don't over-link.
-5. **No matching ticket found** — nothing in the discovery project matches, or
-   several candidates match and none is clearly right — **don't invent a link
-   and don't leave it out silently.** Tell the user which ticket has no
-   counterpart (listing any near-matches you found) and ask how to proceed:
-   which item to link, or to create the ticket unlinked.
-6. **Link type unclear** — the siblings' link type can't be reproduced, or the
-   create call rejects it — ask the user rather than substituting a different
-   type on your own. Only use a generic "Relates" fallback if they approve it,
-   and flag it in the report.
+- Single ticket: linked to the SD, **no** parent epic.
+- Multiple tickets: the epic linked to the SD in the correct direction, every
+  ticket parented to that epic, and no ticket linked directly to the SD.
 
-### Verify and report
+If the create call rejects the SD link type, ask the user rather than
+substituting a different type on your own. Only use a generic "Relates"
+fallback if they approve it, and flag it in the report.
 
-Re-read each created ticket — sprint field, assignee, issue links, and parent —
-and confirm it matches the siblings: in the active sprint, assigned to the right
-person, and linked to the right discovery ticket(s) in the right direction.
-Report the sprint, assignee, and link(s) per ticket in Step 5.
+## Step 6: Report
 
-## Step 5: Report
+Report the structure that was created:
 
-List the created tickets with their keys and URLs, grouped under the epic. For
-each ticket, report its sprint, assignee, and linked SD ticket(s).
+- **Single ticket**: the ticket key, URL, sprint, assignee, and the SD it links
+  to.
+- **Epic + tickets**: the epic key, URL, and the SD it links to; then each
+  ticket with its key, URL, sprint, and assignee, listed under the epic.
+
 Note any PRD requirements that were intentionally skipped (already covered,
 out of scope, or explicitly excluded by the PRD) and why.
