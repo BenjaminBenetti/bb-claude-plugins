@@ -49,6 +49,11 @@
       "name": "work",
       "source": "./plugins/work",
       "description": "Work-management workflows: turn PRDs into tickets, and other planning/tracking helpers"
+    },
+    {
+      "name": "lol",
+      "source": "./plugins/lol",
+      "description": "Fun and role-play skills"
     }
   ]
 }
