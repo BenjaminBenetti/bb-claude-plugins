@@ -8,6 +8,15 @@ argument-hint: "[plan, spec, prompt, file path, link or ticket]"
 
 Produce one HTML artifact that plans a piece of work: where it fits, the choices to make, what to build, and how to roll it out. Every plan has the same shape, so readers learn the layout once.
 
+## Working with the user
+
+This is an interactive planning process. The user guides the work through each section of the plan; you do not produce the plan on your own.
+
+- Start by asking for the plan, spec or prompt the work starts from.
+- Take one section at a time. Research it, propose what it should say, and ask the user about anything that is a real choice or that you could not verify.
+- Put only what the user has agreed on the page. Mark everything else as not decided or not yet checked.
+- Build the artifact incrementally. Publish it early, then update it to the same link as each answer or change comes in, so the page always matches the conversation.
+
 ## Output shape
 
 ### Top of the page
