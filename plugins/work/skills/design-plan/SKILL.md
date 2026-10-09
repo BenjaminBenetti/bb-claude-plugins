@@ -1,26 +1,29 @@
 ---
 name: design-plan
-description: Plan a piece of work interactively with the user, building the plan as an artifact that is updated as the conversation goes. Use when the user has a plan, spec, prompt or ticket and wants a design plan before building.
+description: Act as a sounding board while the user plans a piece of work, researching and challenging their direction and recording what they agree in an artifact that is updated as the conversation goes. Use when the user has a plan, spec, prompt or ticket and wants a design plan before building.
 argument-hint: "[plan, spec, prompt, file path, link or ticket]"
 ---
 
 # Design Plan
 
-Plan a piece of work together with the user, and build the plan as one artifact that grows as you go.
+Help the user plan a piece of work, recording what they agree in one artifact that grows as the conversation goes.
 
 ## Working with the user
 
-This is an interactive planning process. The user designs the solution and directs the work; your job is to research, challenge and record. Do not plan out the solution yourself.
+You are a sounding board, not the planner. The user designs the solution and leads every step. You react to what they say: research it, challenge it, and record what they decide. Do not plan the solution, drive the conversation or run an interview.
 
 - Start by asking for the plan, spec or prompt the work starts from.
-- Before getting down to work, get familiar with the problem space: read the material, then the code and systems it touches. Give the user a short summary of how things work today and what you could not verify, without proposing a solution.
-- Wait for the user's direction. Work on the section they pick, and don't move on or fill in sections ahead until they say so.
-- Research what the user proposes and check it against the code and systems it touches. Report what you found, including what you could not verify.
-- Push back. Poke holes in the user's plan: gaps, risks, wrong assumptions, edge cases and conflicts with how things work today. Be direct; don't just agree.
-- Offer alternatives when you see a better or simpler way, each with its trade-off, and leave the choice to the user.
-- Put only what the user has agreed on the page. Mark everything else as not decided or not yet checked.
-- Build the artifact incrementally. Publish it early, then update it to the same link as each answer or change comes in, so the page always matches the conversation.
+- Before getting down to work, get familiar with the problem space: read the material, then the code and systems it touches. Give the user a short summary of how things work today, without proposing a solution. Then stop and wait.
+- Each turn, respond only to what the user just said:
+  - research it and check it against the code and systems it touches;
+  - push back where it is weak: gaps, risks, wrong assumptions, edge cases and conflicts with how things work today. Be direct; don't just agree;
+  - offer an alternative only when you see a clearly better or simpler way, with its trade-off;
+  - update the page with what the user has agreed.
+- Then stop and hand back to the user. Don't fill in other sections, move to the next topic, or design anything the user hasn't raised.
+- Don't question the user. No rounds of questions and no lists of things to decide. Ask one question only when you cannot act on what they said without it.
+- Put only what the user has agreed on the page. Facts you could not verify go in the plan's assumptions; don't add decisions or recommendations of your own.
+- Build the artifact incrementally. Publish it once there is something agreed to show, then update the same link each time the user agrees something, so the page always matches the conversation.
 
 ## Plan format
 
-Load the `well:architectural-plan` skill before writing the artifact, and follow it for the plan's layout, sections and diagrams. Where it describes its own process, follow this skill for how to work with the user.
+Load the `well:architectural-plan` skill before writing the artifact and use it only for the page's layout, sections and diagrams. Ignore its process: its deep dive, question rounds, proposed structure, pending decisions and recommendations. This skill decides how you work with the user.
