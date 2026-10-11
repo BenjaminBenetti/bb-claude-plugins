@@ -39,12 +39,12 @@ cat > "$DIR/opencode.json" <<EOF
         "qwen3.8-flash-next": {
           "id": "qwen3.8-flash-next-unsloth-ud-iq4_xs", "name": "Qwen3.8-Flash-Next (Strata)",
           "tool_call": true, "reasoning": true,
-          "limit": { "context": 262144, "output": 8192 }, "options": { "reasoningEffort": "medium" }
+          "limit": { "context": 262144, "output": 65536 }, "options": { "reasoningEffort": "medium" }
         },
         "qwen3.8-flash-next-fast": {
           "id": "qwen3.8-flash-next-unsloth-ud-iq4_xs", "name": "Qwen3.8-Flash-Next, no thinking (Strata)",
           "tool_call": true, "reasoning": false,
-          "limit": { "context": 262144, "output": 4096 }, "options": { "reasoningEffort": "none" }
+          "limit": { "context": 262144, "output": 65536 }, "options": { "reasoningEffort": "none" }
         }
       }
     }
