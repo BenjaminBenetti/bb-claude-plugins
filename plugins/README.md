@@ -323,6 +323,17 @@ GitHub integration for repository management.
 
 ---
 
+### opencode
+
+opencode setup and helpers.
+
+**Skills:**
+- `setup-bbenetti-ai` - Point opencode at the self-hosted Strata server on `ai.bbenetti.ca` (Qwen3.8-Flash-Next, 256K context). Gets the API key over SSH or from `STRATA_API_KEY` without printing it, or has you type it into the bundled script's hidden prompt; checks the key before writing anything, backs up an existing `opencode.json`, then verifies with a test request.
+
+**Bundled script:** `skills/setup-bbenetti-ai/scripts/setup-opencode.sh` also works on its own: `sh setup-opencode.sh` (prompts for the key), or `STRATA_API_KEY=... STRATA_URL=... sh setup-opencode.sh`.
+
+---
+
 ## Plugin Development
 
 ### Creating a New Plugin

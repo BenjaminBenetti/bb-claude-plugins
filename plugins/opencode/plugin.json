@@ -1,0 +1,9 @@
+{
+  "name": "opencode",
+  "description": "Skills for configuring and working with opencode",
+  "version": "1.0.0",
+  "author": {
+    "name": "Benjamin Benetti",
+    "email": "ben@bbenetti.ca"
+  }
+}

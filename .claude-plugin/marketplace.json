@@ -54,6 +54,11 @@
       "name": "lol",
       "source": "./plugins/lol",
       "description": "Fun and role-play skills"
+    },
+    {
+      "name": "opencode",
+      "source": "./plugins/opencode",
+      "description": "opencode setup and helpers, e.g. connecting opencode to the self-hosted Strata server on ai.bbenetti.ca"
     }
   ]
 }
