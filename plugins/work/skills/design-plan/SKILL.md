@@ -28,3 +28,5 @@ You are a sounding board, not the planner. The user designs the solution and lea
 ## Plan format
 
 Load the `well:architectural-plan` skill before writing the artifact and use it only for the page's layout, sections and diagrams. Ignore its process: its deep dive, question rounds, proposed structure, pending decisions and recommendations. This skill decides how you work with the user.
+
+Don't let its engine limit the visuals. Draw whatever graphics the plan needs, whether or not `engine.js` supports them: add the code to the copies of `engine.js` and `engine.css` next to the page, or draw them any other way that works. Ignore that skill's rules to copy the engine files unchanged, never to re-implement what the engine does, and to tell the user when a plan needs an engine feature. Never drop or simplify a visual because the engine can't draw it. Whenever you change an engine file, pass it in `files` again when you publish the page.
